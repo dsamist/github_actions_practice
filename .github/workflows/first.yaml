@@ -1,6 +1,6 @@
 name: first #this is the name of the workflow.
 
-on: [push]
+on: [pull_request]
 
 jobs:
   job1:
