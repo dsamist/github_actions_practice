@@ -1,6 +1,6 @@
 name: print date
 
-on: push
+on: [pull_request]
 
 jobs:
   job1:
