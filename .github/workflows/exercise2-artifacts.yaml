@@ -1,6 +1,6 @@
 name: working with artifacts #defines the name of the workflow
 
-on: [push]   #the action that can trigger this workflow.
+on: [pull_request]   #the action that can trigger this workflow.
 
 env:
   ARTIFACT_NAME: myartifact #create an environment variable that is needed later in this workflow
