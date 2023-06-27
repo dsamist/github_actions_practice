@@ -7,18 +7,16 @@ jobs:
     name: Script test
     runs-on: ubuntu-latest
     steps:
-      - name: check repo
-        uses: actions/checkout@v2
-        run: python hello.py
+      - uses: actions/checkout@v2
+      - run: python hello.py
 
   build-script:
     needs: [test-script]
     name: Script build
     runs-on: ubuntu-latest
     steps:
-      - name: build script
-        uses: actions/checkout@v2
-        uses: actions/upload-artifact@v2
+      - uses: actions/checkout@v2
+      - uses: actions/upload-artifact@v2
         with:
           name: hello
           path: .
