@@ -132,7 +132,7 @@ controller:
   ## which can be disabled by setting the controller.useIngressClassOnly parameter to true.
 
   ## The Ingress Controller processes all the VirtualServer/VirtualServerRoute/TransportServer resources that do not have the "ingressClassName" field for all versions of kubernetes.
-  ingressClass: nginx
+  #ingressClass: nginx
 
   ## For kubernetes versions >= 1.18 this flag will be IGNORED.
   ## Ignore Ingress resources without the "kubernetes.io/ingress.class" annotation
