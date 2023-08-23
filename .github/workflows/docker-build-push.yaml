@@ -36,12 +36,12 @@ jobs:
           docker buildx create --use
           docker buildx build --platform linux/amd64,linux/arm64 -t dsamist/pipeline_images:latest -f application/Dockerfile --push .
 
-##once the image is built, push it to the docker hub     
-      - name: Push Docker Image
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: |
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker buildx use default
-          docker push dsamist/pipeline_images:latest
+# ##once the image is built, push it to the docker hub     
+#       - name: Push Docker Image
+#         env:
+#           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#         run: |
+#           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+#           docker buildx use default
+#           docker push dsamist/pipeline_images:latest
