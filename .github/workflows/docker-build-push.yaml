@@ -25,7 +25,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
 ##to build your image, you need to set up your dockerhub credentials. This case, it is added as an environmental variable because it has been saved in the github secrets.
-      - name: Build Docker Image
+      - name: Build and push Docker Image
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
