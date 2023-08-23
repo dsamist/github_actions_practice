@@ -1,6 +1,8 @@
-##give your workflow a unique name.
+##give your workflow a unique name, to understand what it does.
 name: Build and Push Docker Image
+
 ##define the actions that need to be done in the branch for this workflows to be triggered. In this case, a pull request to the main will trigger the actions for this workflow.
+##in this case, the workflow is triggered when the pull request is synchronized or whne the pull request review is submitted.
 on:
   pull_request
     types:
@@ -9,6 +11,7 @@ on:
     types:
     - submitted
 
+##This section defines the jobs that should be done by this workflow. We are building and pushing our application in a docker image and pushing it to a docker hub.
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -17,18 +20,23 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
+##the docker buildx is setup  for buildong mulit-platform images. It is a CLI plugin.
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v1
-      
+
+##to build your image, you need to set up your dockerhub credentials. This case, it is added as an environmental variable because it has been saved in the github secrets.
       - name: Build Docker Image
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+##authenticate to docker hub with the docker login command line
+##build your docker image from a docker file, this file is assumed to be in the same repo and branch, but in a different directory (application)
         run: |
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker buildx create --use
-          docker build --platform linux/amd64,linux/arm64 -t dsamist/pipeline_images:latest -f Dockerfile .
-      
+          docker build --platform linux/amd64,linux/arm64 -t dsamist/pipeline_images:latest -f application/Dockerfile .
+
+##once the image is built, push it to the docker hub     
       - name: Push Docker Image
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -36,8 +44,4 @@ jobs:
         run: |
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker buildx use default
-<<<<<<< HEAD
           docker push dsamist/pipeline_images:latest
-=======
-          docker push dsamist/pipeline_images:latest
->>>>>>> 410b9a32336062c22958e99f79aabc2b4824e7de
