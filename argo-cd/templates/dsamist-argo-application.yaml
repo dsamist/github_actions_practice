@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dsamist
+  namespace: argocd
+spec:
+  project: dsamist
+  source:
+    repoURL: https://github.com/dsamist/github_actions_practice.git
+    targetRevision: {{ .Values.argocdTargetBranch }}
+    path: application_chart/dsamist
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dsamist
