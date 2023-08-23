@@ -2,20 +2,20 @@ name: Pipeline
 
 on: [push]
 env:
-  APPLICATION_NAME: app2
+  APPLICATION_NAME: app2      ##application name to be used in the pipeline
 jobs:
-  lint:
-    runs-on: ubuntu-18.04
+  lint:                       ##linting job to run. A lint job helps to check for error and keep code standards. 
+    runs-on: ubuntu-18.04     ##The platofrm that does the checking
     steps:
     - uses: actions/checkout@v1
-    - name: Setup Python environment
+    - name: Setup Python environment   ##name of the step, this is to setup a python environment
       uses: actions/setup-python@v1.1.1
-    - name: Install requirements
+    - name: Install requirements       ##another step to install requirements
       run: pip install --quiet --requirement requirements.txt
     - name: Lint code
-      run: |
+      run: |                                    ##runs flake8 and pylint to check code for errors. 
         flake8 --ignore=E501,E231 *.py
         pylint --disable=C0301 --disable=C0326 *.py
-    - name: Run unit tests
+    - name: Run unit tests                      ##unit test ensures that code have been developed to standard
       run: |
         python -m unittest --verbose --failfast
