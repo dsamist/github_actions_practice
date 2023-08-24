@@ -3,7 +3,12 @@ name: Build and Push Docker Image
 
 ##define the actions that need to be done in the branch for this workflows to be triggered. In this case, a pull request to the main will trigger the actions for this workflow.
 ##in this case, the workflow is triggered when the pull request is synchronized or whne the pull request review is submitted.
-on: [push]
+##on: [push]
+on:
+  pull_request:
+    types:
+      - closed
+      - synchronize
   # pull_request
   #   types:
   #   - synchronize
